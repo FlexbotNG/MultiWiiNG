@@ -1609,13 +1609,20 @@ void mixTable() {
       
       motor[i] = constrain(motor[i], conf.minthrottle, MAXTHROTTLE);
       
-      if ((rcData[THROTTLE] < MINCHECK) && !f.BARO_MODE)
+      if (rcData[THROTTLE] < MINCHECK)
       {
-        #ifndef MOTOR_STOP
-          motor[i] = conf.minthrottle;
-        #else
-          motor[i] = MINCOMMAND;
-        #endif
+        if (f.BARO_MODE)    // 尝试解决着陆弹跳现象。Skypup 2015.05.04
+        {
+          motor[i] = constrain(motor[i], conf.minthrottle, min(MAXTHROTTLE, rcCommand[THROTTLE] + 200));
+        }
+        else
+        {
+          #ifndef MOTOR_STOP
+            motor[i] = conf.minthrottle;
+          #else
+            motor[i] = MINCOMMAND;
+          #endif
+        }
       }
       
       #ifdef ESC3D
