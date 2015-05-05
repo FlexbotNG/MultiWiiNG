@@ -564,7 +564,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
      Original idea by Kraut Rob, first implementation HAdrian */
 
   // #define THROTTLE_ANGLE_CORRECTION 40
-  #define THROTTLE_ANGLE_CORRECTION 50
+  #define THROTTLE_ANGLE_CORRECTION 40
   
   /*** HEADFREE : the copter can be controled by an absolute stick orientation, whatever the yaw orientation ***/
   //#define HEADFREE

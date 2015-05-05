@@ -1473,8 +1473,8 @@ void loop () {
       
       if (nTemp < 0) 
       {
-        nTemp >>= 1;
-        if (nTemp < -100) nTemp = -100;
+        // nTemp >>= 1;
+        if (nTemp < -150) nTemp = -150;
       }
       if (nTemp > 0)
      {
