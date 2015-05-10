@@ -66,7 +66,7 @@
     #ifdef ESC3D
       #define MINTHROTTLE 1000 // (*) (**)
     #else
-      #define MINTHROTTLE 1150 // (*) (**)
+      #define MINTHROTTLE 1100 // (*) (**)
     #endif
 
   /****************************    Motor maxthrottle    *******************************/
