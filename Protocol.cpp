@@ -809,6 +809,56 @@ void SerialWrite16(uint8_t port, int16_t val)
   serialize16(val);UartSendData(port);
 }
 
+static unsigned char cStateLED = 0xFF;
+
+void serialLEDOn()
+{
+  if (cStateLED != 0x01)
+  {
+    cStateLED = 0x01;
+    serialize8('$');
+    serialize8('M');
+    serialize8('!');
+    checksum[CURRENTPORT] = 0; // start calculating a new checksum
+    serialize8(1);
+    serialize8(0x0A);
+    serialize8(0x01);
+    tailSerialReply();
+  }
+}
+
+void serialLEDOff()
+{
+  if (cStateLED != 0x00)
+  {
+    cStateLED = 0x00;
+    serialize8('$');
+    serialize8('M');
+    serialize8('!');
+    checksum[CURRENTPORT] = 0; // start calculating a new checksum
+    serialize8(1);
+    serialize8(0x0A);
+    serialize8(0x00);
+    tailSerialReply();
+  }
+}
+
+void serialLEDToggle()
+{
+  if (cStateLED != 0x02)
+  {
+    cStateLED = 0x02;
+    serialize8('$');
+    serialize8('M');
+    serialize8('!');
+    checksum[CURRENTPORT] = 0; // start calculating a new checksum
+    serialize8(1);
+    serialize8(0x0A);
+    serialize8(0x02);
+    tailSerialReply();
+  }
+}
+
 void serialBuzzerOn()
 {
     serialize8('$');

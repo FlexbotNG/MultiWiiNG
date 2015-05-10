@@ -4,6 +4,9 @@
 void serialCom();
 void debugmsg_append_str(const char *str);
 
+void serialLEDOn();
+void serialLEDOff();
+void serialLEDToggle();
 void serialBuzzerOn();
 void serialBuzzerOff();
 

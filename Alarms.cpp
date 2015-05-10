@@ -219,6 +219,7 @@ void turnOff(uint8_t resource){
     if (resourceIsOn[0]) {
       resourceIsOn[0] = 0;
       LEDPIN_OFF;
+      serialLEDOff();
     }
   }else if (resource == 2) {
     if (resourceIsOn[2]) {
@@ -337,6 +338,7 @@ void blinkLED(uint8_t num, uint8_t ontime,uint8_t repeat) {
         switch_landing_lights(1);
       #endif
       LEDPIN_TOGGLE; // switch LEDPIN state
+      serialLEDToggle();
       delay(ontime);
       #if defined(LED_FLASHER)
         switch_led_flasher(0);
@@ -398,8 +400,16 @@ void blinkLED(uint8_t num, uint8_t ontime,uint8_t repeat) {
         #endif
         case 0:
         default:
-          if (activate == 1) {LEDPIN_ON;}
-          else LEDPIN_OFF;
+          if (activate == 1) 
+          {
+            LEDPIN_ON;
+            serialLEDOn();
+          }
+          else 
+          {
+            LEDPIN_OFF;
+            serialLEDOff();
+          }
           break;
       }
       return;

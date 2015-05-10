@@ -557,9 +557,18 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
 
   if ( (calibratingA>0 && ACC ) || (calibratingG>0) ) { // Calibration phasis
     LEDPIN_TOGGLE;
+    serialLEDToggle();
   } else {
-    if (f.ACC_CALIBRATED) {LEDPIN_OFF;}
-    if (f.ARMED) {LEDPIN_ON;}
+    if (f.ACC_CALIBRATED) 
+    {
+      LEDPIN_OFF;
+      serialLEDOff();
+    }
+    if (f.ARMED) 
+    {
+      LEDPIN_ON;
+      serialLEDOn();
+    }
   }
 
   #if defined(LED_RING)
@@ -579,6 +588,7 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
       // the multi uses ACC and is not calibrated or is too much inclinated
       f.ACC_CALIBRATED = 0;
       LEDPIN_TOGGLE;
+      serialLEDToggle();
       calibratedAccTime = currentTime + 100000;
     } else {
       f.ACC_CALIBRATED = 1;

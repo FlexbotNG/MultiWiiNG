@@ -8,6 +8,7 @@
 #include "IMU.h"
 #include "LCD.h"
 #include "Sensors.h"
+#include "Protocol.h"
 
 static void Device_Mag_getADC();
 static void Baro_init();
@@ -186,9 +187,11 @@ void GYRO_Common() {
       if(tilt) {
         calibratingG=1000;
         LEDPIN_ON;
+        serialLEDOn();
       } else {
         calibratingG--;
         LEDPIN_OFF;
+        serialLEDOff();
       }
       return;
     #else
@@ -930,6 +933,7 @@ uint8_t Mag_getADC() { // return 1 when news values are available, 0 otherwise
       tCal = t;
     if ((t - tCal) < 30000000) { // 30s: you have 30s to turn the multi in all directions
       LEDPIN_TOGGLE;
+      serialLEDToggle();
       for(axis=0;axis<3;axis++) {
         if(tCal == t) { // it happens only in the first step, initialize the zero
           magZeroTempMin[axis] = imu.magADC[axis];
