@@ -809,6 +809,30 @@ void SerialWrite16(uint8_t port, int16_t val)
   serialize16(val);UartSendData(port);
 }
 
+void serialBuzzerOn()
+{
+    serialize8('$');
+    serialize8('M');
+    serialize8('!');
+    checksum[CURRENTPORT] = 0; // start calculating a new checksum
+    serialize8(1);
+    serialize8(0x0D);
+    serialize8(0x01);
+    tailSerialReply();
+}
+ 
+void serialBuzzerOff()
+{
+    serialize8('$');
+    serialize8('M');
+    serialize8('!');
+    checksum[CURRENTPORT] = 0; // start calculating a new checksum
+    serialize8(1);
+    serialize8(0x0D);
+    serialize8(0x00);
+    tailSerialReply();
+}
+ 
 
 #ifdef DEBUGMSG
 void debugmsg_append_str(const char *str) {

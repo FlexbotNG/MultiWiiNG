@@ -4,4 +4,7 @@
 void serialCom();
 void debugmsg_append_str(const char *str);
 
+void serialBuzzerOn();
+void serialBuzzerOff();
+
 #endif /* PROTOCOL_H_ */

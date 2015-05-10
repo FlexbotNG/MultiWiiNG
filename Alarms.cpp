@@ -6,6 +6,7 @@
 #include "LCD.h"
 #include "Sensors.h"
 #include "Alarms.h"
+#include "Protocol.h"
 
 void alarmPatternComposer();
 void patternDecode(uint8_t resource,uint16_t first,uint16_t second,uint16_t third,uint16_t cyclepause, uint16_t endpause);
@@ -211,6 +212,7 @@ void turnOff(uint8_t resource){
   if (resource == 1) {
     if (resourceIsOn[1]) {
       BUZZERPIN_OFF;
+      serialBuzzerOff();
       resourceIsOn[1] = 0;
     }
   }else if (resource == 0) {
@@ -368,8 +370,16 @@ void blinkLED(uint8_t num, uint8_t ontime,uint8_t repeat) {
      switch(resource) {     
         #if defined (BUZZER)   
           case 1:
-            if (activate == 1) {BUZZERPIN_ON;}
-            else BUZZERPIN_OFF;
+            if (activate == 1) 
+            {
+              BUZZERPIN_ON;
+              serialBuzzerOn();
+            }
+            else 
+            {
+              BUZZERPIN_OFF;
+              serialBuzzerOff();
+            }
             break; 
         #endif
         #if defined (PILOTLAMP) 
