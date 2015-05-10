@@ -816,14 +816,17 @@ void serialLEDOn()
   if (cStateLED != 0x01)
   {
     cStateLED = 0x01;
-    serialize8('$');
-    serialize8('M');
-    serialize8('!');
-    checksum[CURRENTPORT] = 0; // start calculating a new checksum
-    serialize8(1);
-    serialize8(0x0A);
-    serialize8(0x01);
-    tailSerialReply();
+    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+    {
+      serialize8('$');
+      serialize8('M');
+      serialize8('!');
+      checksum[CURRENTPORT] = 0; // start calculating a new checksum
+      serialize8(1);
+      serialize8(0x0A);
+      serialize8(0x01);
+      tailSerialReply();
+    }
   }
 }
 
@@ -832,14 +835,17 @@ void serialLEDOff()
   if (cStateLED != 0x00)
   {
     cStateLED = 0x00;
-    serialize8('$');
-    serialize8('M');
-    serialize8('!');
-    checksum[CURRENTPORT] = 0; // start calculating a new checksum
-    serialize8(1);
-    serialize8(0x0A);
-    serialize8(0x00);
-    tailSerialReply();
+    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+    {
+      serialize8('$');
+      serialize8('M');
+      serialize8('!');
+      checksum[CURRENTPORT] = 0; // start calculating a new checksum
+      serialize8(1);
+      serialize8(0x0A);
+      serialize8(0x00);
+      tailSerialReply();
+    }
   }
 }
 
@@ -848,39 +854,48 @@ void serialLEDToggle()
   if (cStateLED != 0x02)
   {
     cStateLED = 0x02;
-    serialize8('$');
-    serialize8('M');
-    serialize8('!');
-    checksum[CURRENTPORT] = 0; // start calculating a new checksum
-    serialize8(1);
-    serialize8(0x0A);
-    serialize8(0x02);
-    tailSerialReply();
+    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+    {    
+      serialize8('$');
+      serialize8('M');
+      serialize8('!');
+      checksum[CURRENTPORT] = 0; // start calculating a new checksum
+      serialize8(1);
+      serialize8(0x0A);
+      serialize8(0x02);
+      tailSerialReply();
+    }
   }
 }
 
 void serialBuzzerOn()
 {
-    serialize8('$');
-    serialize8('M');
-    serialize8('!');
-    checksum[CURRENTPORT] = 0; // start calculating a new checksum
-    serialize8(1);
-    serialize8(0x0D);
-    serialize8(0x01);
-    tailSerialReply();
+    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+    {
+      serialize8('$');
+      serialize8('M');
+      serialize8('!');
+      checksum[CURRENTPORT] = 0; // start calculating a new checksum
+      serialize8(1);
+      serialize8(0x0D);
+      serialize8(0x01);
+      tailSerialReply();
+    }
 }
  
 void serialBuzzerOff()
 {
-    serialize8('$');
-    serialize8('M');
-    serialize8('!');
-    checksum[CURRENTPORT] = 0; // start calculating a new checksum
-    serialize8(1);
-    serialize8(0x0D);
-    serialize8(0x00);
-    tailSerialReply();
+    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+    {  
+      serialize8('$');
+      serialize8('M');
+      serialize8('!');
+      checksum[CURRENTPORT] = 0; // start calculating a new checksum
+      serialize8(1);
+      serialize8(0x0D);
+      serialize8(0x00);
+      tailSerialReply();
+    }
 }
  
 
