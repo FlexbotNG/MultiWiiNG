@@ -60,7 +60,8 @@ bool readEEPROM() {
     recallGPSconf();   // Load gps parameters
   #endif
   #if defined(ARMEDTIMEWARNING)
-    ArmedTimeWarningMicroSeconds = (conf.armedtimewarning *1000000);
+    // ArmedTimeWarningMicroSeconds = (conf.armedtimewarning *1000000);
+    ArmedTimeWarningMicroSeconds = (ARMEDTIMEWARNING *1000000);
   #endif
   return true;    // setting is OK
 }

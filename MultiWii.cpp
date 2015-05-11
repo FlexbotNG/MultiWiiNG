@@ -562,12 +562,19 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
     if (f.ACC_CALIBRATED) 
     {
       LEDPIN_OFF;
-      serialLEDOff();
+      if (GetStateLED() == 2)
+      {
+        serialLEDOff();
+      }
     }
     if (f.ARMED) 
     {
       LEDPIN_ON;
       serialLEDOn();
+    }
+    else
+    {
+      serialLEDOff();
     }
   }
 
@@ -940,6 +947,7 @@ void loop () {
     {
       rcTimeLoop = 0;
       serialLEDRefresh();
+      serialBuzzerRefresh();
     }
 
     computeRC();

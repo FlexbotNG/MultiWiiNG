@@ -9,6 +9,8 @@ void serialLEDRefresh();
 void serialLEDOn();
 void serialLEDOff();
 void serialLEDToggle();
+
+void serialBuzzerRefresh();
 void serialBuzzerOn();
 void serialBuzzerOff();
 
