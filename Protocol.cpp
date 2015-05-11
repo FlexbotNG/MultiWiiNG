@@ -811,22 +811,32 @@ void SerialWrite16(uint8_t port, int16_t val)
 
 static unsigned char cStateLED = 0xFF;
 
+unsigned char GetStateLED()
+{
+  return cStateLED;
+}
+
+void serialLEDRefresh()
+{
+  //  for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
+  //  {
+  serialize8('$');
+  serialize8('M');
+  serialize8('!');
+  checksum[CURRENTPORT] = 0; // start calculating a new checksum
+  serialize8(1);
+  serialize8(0x0A);
+  serialize8(cStateLED);
+  tailSerialReply();
+  //  }
+}
+
 void serialLEDOn()
 {
   if (cStateLED != 0x01)
   {
     cStateLED = 0x01;
-    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
-    {
-      serialize8('$');
-      serialize8('M');
-      serialize8('!');
-      checksum[CURRENTPORT] = 0; // start calculating a new checksum
-      serialize8(1);
-      serialize8(0x0A);
-      serialize8(0x01);
-      tailSerialReply();
-    }
+    serialLEDRefresh();
   }
 }
 
@@ -835,17 +845,7 @@ void serialLEDOff()
   if (cStateLED != 0x00)
   {
     cStateLED = 0x00;
-    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
-    {
-      serialize8('$');
-      serialize8('M');
-      serialize8('!');
-      checksum[CURRENTPORT] = 0; // start calculating a new checksum
-      serialize8(1);
-      serialize8(0x0A);
-      serialize8(0x00);
-      tailSerialReply();
-    }
+    serialLEDRefresh();
   }
 }
 
@@ -854,17 +854,7 @@ void serialLEDToggle()
   if (cStateLED != 0x02)
   {
     cStateLED = 0x02;
-    for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
-    {    
-      serialize8('$');
-      serialize8('M');
-      serialize8('!');
-      checksum[CURRENTPORT] = 0; // start calculating a new checksum
-      serialize8(1);
-      serialize8(0x0A);
-      serialize8(0x02);
-      tailSerialReply();
-    }
+    serialLEDRefresh();
   }
 }
 

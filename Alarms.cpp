@@ -349,6 +349,7 @@ void blinkLED(uint8_t num, uint8_t ontime,uint8_t repeat) {
     }
     delay(60); //wait 60 ms
   }
+  serialLEDOff();
 }
 
 /********************************************************************/

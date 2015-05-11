@@ -591,6 +591,10 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
       serialLEDToggle();
       calibratedAccTime = currentTime + 100000;
     } else {
+      if (GetStateLED() == 2)
+      {
+        serialLEDOff();
+      }
       f.ACC_CALIBRATED = 1;
     }
   }
@@ -911,6 +915,7 @@ void loop () {
   int16_t AngleRateTmp, RateError;
   #endif
   static uint16_t rcTime  = 0;
+  static uint16_t rcTimeLoop  = 0;
 //  static int16_t initialThrottleHold;
   int16_t rc;
   int32_t prop = 0;
@@ -929,6 +934,14 @@ void loop () {
   if ((int16_t)(currentTime-rcTime) >0 ) { // 50Hz
   #endif
     rcTime = currentTime + 20000;
+    
+    // 更新串口外设状态
+    if (++rcTimeLoop >= 10)  // 200ms
+    {
+      rcTimeLoop = 0;
+      serialLEDRefresh();
+    }
+
     computeRC();
     // Failsafe routine - added by MIS
     #if defined(FAILSAFE)

@@ -944,6 +944,10 @@ uint8_t Mag_getADC() { // return 1 when news values are available, 0 otherwise
         global_conf.magZero[axis] = (magZeroTempMin[axis] + magZeroTempMax[axis])>>1;
       }
     } else {
+      if (GetStateLED() == 2)
+      {
+        serialLEDOff();
+      }
       f.CALIBRATE_MAG = 0;
       tCal = 0;
       writeGlobalSet(1);
