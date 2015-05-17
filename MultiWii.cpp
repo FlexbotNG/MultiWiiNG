@@ -1030,7 +1030,7 @@ void loop () {
     if(rcDelayCommand == 20) {
       if(f.ARMED) {                   // actions during armed
         #ifdef ALLOW_ARM_DISARM_VIA_TX_YAW
-          // if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_LO + PIT_CE + ROL_CE) go_disarm();    // Disarm via YAW
+          if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_LO + PIT_CE + ROL_CE) go_disarm();    // Disarm via YAW
           if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_LO + PIT_LO + ROL_HI) go_disarm();    // Disarm via YAW
         #endif
         #ifdef ALLOW_ARM_DISARM_VIA_TX_ROLL
@@ -1080,7 +1080,7 @@ void loop () {
           previousTime = micros();
         }
         #ifdef ALLOW_ARM_DISARM_VIA_TX_YAW
-          // else if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_HI + PIT_CE + ROL_CE) go_arm();      // Arm via YAW
+          else if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_HI + PIT_CE + ROL_CE) go_arm();      // Arm via YAW
           else if (conf.activate[BOXARM] == 0 && rcSticks == THR_LO + YAW_HI + PIT_LO + ROL_LO) go_arm();      // Arm via YAW
         #endif
         #ifdef ALLOW_ARM_DISARM_VIA_TX_ROLL
