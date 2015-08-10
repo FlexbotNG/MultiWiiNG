@@ -32,7 +32,7 @@
 /*************************************************************************************************/
 
   /************************** 特殊功能定义 *********************************************/
-     // #define ESC3D       // 支持3D电调
+    #define ESC3D       // 支持3D电调
 
   /**************************    The type of multicopter    ****************************/
     //#define GIMBAL
@@ -79,8 +79,8 @@
     #define MINCOMMAND  1000
 
   /**********************************  I2C speed for old WMP config (useless config for other sensors)  *************/
-    #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
-    //#define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
+    //#define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
+    #define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
 
   /***************************    Internal i2c Pullups   ********************************/
     /* enable internal I2C pull ups (in most cases it is better to use external pullups) */
@@ -368,7 +368,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
       /* The following lines apply only for specific receiver with only one PPM sum signal, on digital PIN 2
          Select the right line depending on your radio brand. Feel free to modify the order in your PPM order is different */
       // #define SERIAL_SUM_PPM         PITCH,YAW,THROTTLE,ROLL,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Graupner/Spektrum
-      // #define SERIAL_SUM_PPM         ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Robe/Hitec/Futaba/飞梦
+      #define SERIAL_SUM_PPM         ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Robe/Hitec/Futaba/飞梦
       // #define SERIAL_SUM_PPM         ROLL,PITCH,YAW,THROTTLE,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Multiplex
       // #define SERIAL_SUM_PPM         PITCH,ROLL,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For some Hitec/Sanwa/Others
 
