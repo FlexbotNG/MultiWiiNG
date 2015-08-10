@@ -1607,6 +1607,7 @@ void mixTable() {
         motor[i] += MINTHROTTLE - minMotor;
       }
       
+      #ifndef ESC3D
       motor[i] = constrain(motor[i], conf.minthrottle, MAXTHROTTLE);
       
       if (rcData[THROTTLE] < MINCHECK)
@@ -1624,6 +1625,7 @@ void mixTable() {
           #endif
         }
       }
+      #endif
       
       #ifdef ESC3D
         motor[i] = constrain(motor[i], 1000, 2000);

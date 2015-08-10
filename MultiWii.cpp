@@ -430,8 +430,16 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
     }
     if (rcData[axis]<MIDRC) rcCommand[axis] = -rcCommand[axis];
   }
-  tmp = constrain(rcData[THROTTLE],MINCHECK,2000);
-  tmp = (uint32_t)(tmp-MINCHECK)*2559/(2000-MINCHECK); // [MINCHECK;2000] -> [0;2559]
+
+  // Skypup 2015.08.10  
+  #ifdef ESC3D
+    tmp = constrain(rcData[THROTTLE],1000,2000);
+    tmp = (uint32_t)(tmp-1000)*2559/(2000-1000); // [MINCHECK;2000] -> [0;2559]
+  #else
+    tmp = constrain(rcData[THROTTLE],MINCHECK,2000);
+    tmp = (uint32_t)(tmp-MINCHECK)*2559/(2000-MINCHECK); // [MINCHECK;2000] -> [0;2559]
+  #endif
+  
   tmp2 = tmp/256; // range [0;9]
   rcCommand[THROTTLE] = lookupThrottleRC[tmp2] + (tmp-tmp2*256) * (lookupThrottleRC[tmp2+1]-lookupThrottleRC[tmp2]) / 256; // [0;2559] -> expo -> [conf.minthrottle;MAXTHROTTLE]
   #if defined(HEADFREE)
@@ -1012,21 +1020,24 @@ void loop () {
     }
     #endif
     
-    // perform actions    
-    if (rcData[THROTTLE] <= MINCHECK) {            // THROTTLE at minimum
-      #if !defined(FIXEDWING)
-        errorGyroI[ROLL] = 0; errorGyroI[PITCH] = 0;
-        #if PID_CONTROLLER == 1
-          errorGyroI_YAW = 0;
-        #elif PID_CONTROLLER == 2
-          errorGyroI[YAW] = 0;
+    #ifndef ESC3D
+      // perform actions    
+      if (rcData[THROTTLE] <= MINCHECK) {            // THROTTLE at minimum
+        #if !defined(FIXEDWING)
+          errorGyroI[ROLL] = 0; errorGyroI[PITCH] = 0;
+          #if PID_CONTROLLER == 1
+            errorGyroI_YAW = 0;
+          #elif PID_CONTROLLER == 2
+            errorGyroI[YAW] = 0;
+          #endif
+          errorAngleI[ROLL] = 0; errorAngleI[PITCH] = 0;
         #endif
-        errorAngleI[ROLL] = 0; errorAngleI[PITCH] = 0;
-      #endif
-      if (conf.activate[BOXARM] > 0) {             // Arming/Disarming via ARM BOX
-        if ( rcOptions[BOXARM] && f.OK_TO_ARM ) go_arm(); else if (f.ARMED) go_disarm();
+        if (conf.activate[BOXARM] > 0) {             // Arming/Disarming via ARM BOX
+          if ( rcOptions[BOXARM] && f.OK_TO_ARM ) go_arm(); else if (f.ARMED) go_disarm();
+        }
       }
-    }
+    #endif
+    
     if(rcDelayCommand == 20) {
       if(f.ARMED) {                   // actions during armed
         #ifdef ALLOW_ARM_DISARM_VIA_TX_YAW
