@@ -291,6 +291,7 @@ void getEstimatedAttitude(){
     value += deadband;                  \
   }
 
+#if BARO
 uint8_t getEstimatedAltitude(){
   int32_t  BaroAlt;
   static float baroGroundTemperatureScale,logBaroGroundPressureSum;
@@ -360,4 +361,4 @@ uint8_t getEstimatedAltitude(){
 
   return 1;
 }
-
+#endif

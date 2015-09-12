@@ -14,6 +14,7 @@ uint8_t land_detect;                 //Detect land (extern)
 #define LAND_DETECT_THRESHOLD 40      //Counts of land situation
 #define BAROPIDMIN           -180     //BaroPID reach this if we landed.....
 
+#if BARO
 //Check if we landed or not
 void check_land() {
   // detect whether we have landed by watching for low climb rate and throttle control
@@ -34,6 +35,7 @@ void check_land() {
     }
   }
 }
+#endif
 
 #if GPS
 
