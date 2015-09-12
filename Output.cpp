@@ -1631,6 +1631,22 @@ void mixTable() {
         motor[i] = constrain(motor[i], 1000, 2000);
         if (f.ANGLE_MODE || f.HORIZON_MODE)
         {
+          if (rcData[THROTTLE] < MINCHECK)
+          {
+            if (f.BARO_MODE)    // 尝试解决着陆弹跳现象。Skypup 2015.05.04
+            {
+              motor[i] = constrain(motor[i], conf.minthrottle, min(MAXTHROTTLE, rcCommand[THROTTLE] + 200));
+            }
+            else
+            {
+              #ifndef MOTOR_STOP
+                motor[i] = conf.minthrottle;
+              #else
+                motor[i] = MINCOMMAND;
+              #endif
+            }
+          }
+          
           motor[i] = map(motor[i], 1000, 2000, 1500, 2000);
         }
         else

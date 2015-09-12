@@ -1146,6 +1146,7 @@ void loop () {
     }
     else
     {
+#if BARO      
       // 不需要每次都运行
       // 着陆后自动加锁    Skypup 2015.04.01
       #define BAROPIDMIN           -180     //BaroPID reach this if we landed.....
@@ -1166,6 +1167,7 @@ void loop () {
           land_detect = 0;
         }  
       }
+#endif    
     }
     
     #if defined(LED_FLASHER)
@@ -1410,9 +1412,9 @@ void loop () {
         #endif
       case 2:
         taskOrder++;
-//        #if BARO
+#if BARO
         if (getEstimatedAltitude() != 0) break; // 280 us
-//        #endif    
+#endif
       case 3:
         taskOrder++;
         #if GPS
