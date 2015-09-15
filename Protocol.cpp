@@ -818,6 +818,7 @@ unsigned char GetStateLED()
 
 void serialLEDRefresh()
 {
+#ifdef SERIAL_EXTEND  
   //  for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
   //  {
   serialize8('$');
@@ -829,6 +830,7 @@ void serialLEDRefresh()
   serialize8(cStateLED);
   tailSerialReply();
   //  }
+#endif
 }
 
 void serialLEDOn()
@@ -867,6 +869,7 @@ static unsigned char cStateBuzzer = 0x00;
 
 void serialBuzzerRefresh()
 {
+#ifdef SERIAL_EXTEND    
   //  for (unsigned char nSendRepeat = 0; nSendRepeat < 3; nSendRepeat++)
   //  {
   serialize8('$');
@@ -878,6 +881,7 @@ void serialBuzzerRefresh()
   serialize8(cStateBuzzer);
   tailSerialReply();
   //  }
+#endif  
 }
 
 void serialBuzzerOn()
