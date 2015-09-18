@@ -841,7 +841,7 @@ void go_arm() {
       
       #if defined(QUADX) || defined(AIRPLANE)
         // 解锁后校准 Skypup 2015.03.08
-        calibratingA = 512;
+        // calibratingA = 512;
         calibratingG = 512;
         
         #ifdef ALT_HOLD_THROTTLE_MIDPOINT
@@ -1515,16 +1515,18 @@ void loop () {
 
       nTemp = rcCommand[THROTTLE] - initialThrottleHold;
       
-      if (nTemp < 0) 
-      {
-        // nTemp >>= 1;
-        if (nTemp < -250) nTemp = -250;
-      }
-      if (nTemp > 0)
-     {
-       // nTemp >>= 1;
-       if (nTemp > 300) nTemp = 300;
-     }
+      #ifndef ESC3D
+        if (nTemp < 0) 
+        {
+          // nTemp >>= 1;
+          if (nTemp < -250) nTemp = -250;
+        }
+        if (nTemp > 0)
+        {
+          // nTemp >>= 1;
+          if (nTemp > 300) nTemp = 300;
+        }
+      #endif
       
       AltHoldCorr+= nTemp;
       
